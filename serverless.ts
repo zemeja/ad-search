@@ -6,7 +6,7 @@ const serverlessConfiguration: AWS = {
   service: 'ad-search',
 
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild'],
+  plugins: ['serverless-esbuild', 'serverless-offline'],
   provider: {
     name: 'aws',
     region: 'eu-central-1',

@@ -19,6 +19,23 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
     },
+    iam: {
+      role: {
+        statements: [{
+          Effect: "Allow",
+          Action: [
+            "dynamodb:DescribeTable",
+            "dynamodb:Query",
+            "dynamodb:Scan",
+            "dynamodb:GetItem",
+            "dynamodb:PutItem",
+            "dynamodb:UpdateItem",
+            "dynamodb:DeleteItem",
+          ],
+          Resource: "arn:aws:dynamodb:eu-central-1:*:table/Adverts",
+        }],
+      },
+    },
   },
   // import the function via paths
   functions: { hello },
@@ -35,6 +52,28 @@ const serverlessConfiguration: AWS = {
       concurrency: 10,
     },
   },
+  resources: {
+    Resources: {
+      AdvertsTable: {
+        Type: "AWS::DynamoDB::Table",
+        Properties: {
+          TableName: "Adverts",
+          AttributeDefinitions: [{
+            AttributeName: "id",
+            AttributeType: "S"
+          }],
+          KeySchema: [{
+            AttributeName: "id",
+            KeyType: "HASH"
+          }],
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 1,
+            WriteCapacityUnits: 1
+          },
+        }
+      }
+    }
+  }
 };
 
 module.exports = serverlessConfiguration;

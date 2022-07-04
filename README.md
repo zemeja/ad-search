@@ -96,5 +96,5 @@ Any tsconfig.json can be used, but if you do, set the environment variable `TS_N
 
 
 ----
-
+local install dynamodb `serverless dynamodb install`
 local start `serverless offline start --printOutput`

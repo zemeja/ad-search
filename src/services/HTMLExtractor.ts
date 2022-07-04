@@ -8,6 +8,7 @@ export const extractAd = (html: string): IAdvert => {
   const extractedTitle = $('h1.nadpisdetail').text();
   const extractedDescription = $('.popisdetail').text();
   let extractedId = $('.drobky b').text().replace(/[^0-9]/g,'');
+  const now = new Date();
 
   // todo: extract price from taxt, handle price on demand, add createdAt datetime
   const advert: IAdvert = {
@@ -15,7 +16,7 @@ export const extractAd = (html: string): IAdvert => {
     title : extractedTitle,
     description: extractedDescription,
     price: 0,
-    createdAt: ''
+    createdAt: now.toISOString()
   }
 
   return advert

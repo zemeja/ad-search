@@ -6,7 +6,7 @@ const serverlessConfiguration: AWS = {
   service: 'ad-search',
 
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-offline'],
+  plugins: ['serverless-esbuild', 'serverless-dynamodb-local', 'serverless-offline'],
   provider: {
     name: 'aws',
     region: 'eu-central-1',
@@ -51,6 +51,16 @@ const serverlessConfiguration: AWS = {
       platform: 'node',
       concurrency: 10,
     },
+    dynamodb:{
+      start:{
+        port: 5000,
+        inMemory: true,
+        migrate: true,
+        seed: true,
+        convertEmptyValues: true
+      },
+      stages: "dev"
+    }
   },
   resources: {
     Resources: {
